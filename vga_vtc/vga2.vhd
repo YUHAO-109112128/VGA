@@ -131,7 +131,6 @@ begin
             pwm_complete <= '1';
         end if;
     end if;
-    
 end process;
 
 counter_FSM : process(i_clk, i_rst, count1, count2)
