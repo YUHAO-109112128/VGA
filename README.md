@@ -108,4 +108,38 @@
         end if;
     end process;
 
-------------------------------------------------------
+## 橢圓長短邊
+
+在執行上面的程式時，如果我們使用的橢圓公式長短邊相同的情況下會變成圓形公式，但這時會發現畫面上顯示的是橢圓而不是正圓。
+
+所以要去調整橢圓的長短邊使橢圓變為正圓，程式內容如下:
+
+宣告部分:
+
+    signal circle_a : integer := 100;
+    signal delta_circle : integer := 5;
+    signal circle_b : integer := 100;
+程式部分:
+
+    picture_adjust : process(i_clk, swSuba, swPlusa, swSubb, swPlusb)
+    begin
+        if i_clk'event and i_clk = '1' then
+            if swSuba = '1' then
+                if circle_a > 50 then
+                    circle_a <= circle_a - delta_circle;
+                end if;
+            elsif swPlusa = '1' then
+                if circle_a < 150 then
+                    circle_a <= circle_a + delta_circle;
+                end if;
+            elsif swSubb = '1' then
+                if circle_b > 50 then
+                    circle_b <= circle_b - delta_circle;
+                end if;
+            elsif swPlusb = '1' then
+                if circle_b < 150 then
+                    circle_b <= circle_b + delta_circle;
+                end if;
+            end if;
+        end if;
+    end process;
