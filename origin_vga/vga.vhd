@@ -56,16 +56,16 @@ begin
 swPlusa_handling:process(i_clk, i_swPlusa)
 begin
     if i_clk'event and i_clk = '1' then
-        if (i_swPlusa = '1') then  --½T»{«ö¶s«ö¤U
-            if swPlusa_count < 100 then  --¼u¸õ³B²z®É¶¡
+        if (i_swPlusa = '1') then  --ç¢ºèªæŒ‰éˆ•æŒ‰ä¸‹
+            if swPlusa_count < 100 then  --å½ˆè·³è™•ç†æ™‚é–“
                 swPlusa_count <= swPlusa_count + 1;
-            elsif swPlusa_count = 100 then  --½T»{«ö¤U«ö¶s«á¿é¥X¤@­Óclkªº°T¸¹
+            elsif swPlusa_count = 100 then  --ç¢ºèªæŒ‰ä¸‹æŒ‰éˆ•å¾Œè¼¸å‡ºä¸€å€‹clkçš„è¨Šè™Ÿ
                 swPlusa <= '1';
                 swPlusa_count <= swPlusa_count + 1;
-            else  --­n©ñ¶}«ö¶s¤~¥i¥H«ö²Ä¤G¦¸
+            else  --è¦æ”¾é–‹æŒ‰éˆ•æ‰å¯ä»¥æŒ‰ç¬¬äºŒæ¬¡
                 swPlusa <= '0';
             end if;
-        else  --«ö¶s©ñ¶}«á­«¸m­p¼Æ
+        else  --æŒ‰éˆ•æ”¾é–‹å¾Œé‡ç½®è¨ˆæ•¸
             swPlusa_count <= 0;
             swPlusa <= '0';
         end if;
@@ -75,16 +75,16 @@ end process;
 swSuba_handling:process(i_clk, i_swSuba)
 begin
     if i_clk'event and i_clk = '1' then
-        if (i_swSuba = '1') then  --½T»{«ö¶s«ö¤U
-            if swSuba_count < 100 then  --¼u¸õ³B²z®É¶¡
+        if (i_swSuba = '1') then  --ç¢ºèªæŒ‰éˆ•æŒ‰ä¸‹
+            if swSuba_count < 100 then  --å½ˆè·³è™•ç†æ™‚é–“
                 swSuba_count <= swSuba_count + 1;
-            elsif swSuba_count = 100 then  --½T»{«ö¤U«ö¶s«á¿é¥X¤@­Óclkªº°T¸¹
+            elsif swSuba_count = 100 then  --ç¢ºèªæŒ‰ä¸‹æŒ‰éˆ•å¾Œè¼¸å‡ºä¸€å€‹clkçš„è¨Šè™Ÿ
                 swSuba <= '1';
                 swSuba_count <= swSuba_count + 1;
-            else  --­n©ñ¶}«ö¶s¤~¥i¥H«ö²Ä¤G¦¸
+            else  --è¦æ”¾é–‹æŒ‰éˆ•æ‰å¯ä»¥æŒ‰ç¬¬äºŒæ¬¡
                 swSuba <= '0';
             end if;
-        else  --«ö¶s©ñ¶}«á­«¸m­p¼Æ
+        else  --æŒ‰éˆ•æ”¾é–‹å¾Œé‡ç½®è¨ˆæ•¸
             swSuba_count <= 0;
             swSuba <= '0';
         end if;
@@ -94,16 +94,16 @@ end process;
 swPlusb_handling:process(i_clk, i_swPlusb)
 begin
     if i_clk'event and i_clk = '1' then
-        if (i_swPlusb = '1') then  --½T»{«ö¶s«ö¤U
-            if swPlusb_count < 100 then  --¼u¸õ³B²z®É¶¡
+        if (i_swPlusb = '1') then  --ç¢ºèªæŒ‰éˆ•æŒ‰ä¸‹
+            if swPlusb_count < 100 then  --å½ˆè·³è™•ç†æ™‚é–“
                 swPlusb_count <= swPlusb_count + 1;
-            elsif swPlusb_count = 100 then  --½T»{«ö¤U«ö¶s«á¿é¥X¤@­Óclkªº°T¸¹
+            elsif swPlusb_count = 100 then  --ç¢ºèªæŒ‰ä¸‹æŒ‰éˆ•å¾Œè¼¸å‡ºä¸€å€‹clkçš„è¨Šè™Ÿ
                 swPlusb <= '1';
                 swPlusb_count <= swPlusb_count + 1;
-            else  --­n©ñ¶}«ö¶s¤~¥i¥H«ö²Ä¤G¦¸
+            else  --è¦æ”¾é–‹æŒ‰éˆ•æ‰å¯ä»¥æŒ‰ç¬¬äºŒæ¬¡
                 swPlusb <= '0';
             end if;
-        else  --«ö¶s©ñ¶}«á­«¸m­p¼Æ
+        else  --æŒ‰éˆ•æ”¾é–‹å¾Œé‡ç½®è¨ˆæ•¸
             swPlusb_count <= 0;
             swPlusb <= '0';
         end if;
@@ -113,16 +113,16 @@ end process;
 swSubb_handling:process(i_clk, i_swSubb)
 begin
     if i_clk'event and i_clk = '1' then
-        if (i_swSubb = '1') then  --½T»{«ö¶s«ö¤U
-            if swSubb_count < 100 then  --¼u¸õ³B²z®É¶¡
+        if (i_swSubb = '1') then  --ç¢ºèªæŒ‰éˆ•æŒ‰ä¸‹
+            if swSubb_count < 100 then  --å½ˆè·³è™•ç†æ™‚é–“
                 swSubb_count <= swSubb_count + 1;
-            elsif swSubb_count = 100 then  --½T»{«ö¤U«ö¶s«á¿é¥X¤@­Óclkªº°T¸¹
+            elsif swSubb_count = 100 then  --ç¢ºèªæŒ‰ä¸‹æŒ‰éˆ•å¾Œè¼¸å‡ºä¸€å€‹clkçš„è¨Šè™Ÿ
                 swSubb <= '1';
                 swSubb_count <= swSubb_count + 1;
-            else  --­n©ñ¶}«ö¶s¤~¥i¥H«ö²Ä¤G¦¸
+            else  --è¦æ”¾é–‹æŒ‰éˆ•æ‰å¯ä»¥æŒ‰ç¬¬äºŒæ¬¡
                 swSubb <= '0';
             end if;
-        else  --«ö¶s©ñ¶}«á­«¸m­p¼Æ
+        else  --æŒ‰éˆ•æ”¾é–‹å¾Œé‡ç½®è¨ˆæ•¸
             swSubb_count <= 0;
             swSubb <= '0';
         end if;
@@ -160,9 +160,6 @@ vga_counter:process
       else
         V <= '1';
       end if;
-
-    
-
 end process;
 
 picture_adjust : process(i_clk, swSuba, swPlusa, swSubb, swPlusb)
