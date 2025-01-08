@@ -37,38 +37,39 @@ end process;
 
 ------------------------------------------------------
 有了工作時脈後，就可以透過計數器進行畫面的掃描，horizontal進行水平座標掃秒，vertical進行垂直座標掃秒，程式如下:
-vga_counter:process
-    --variable vertical, horizontal : counter;  -- define counters
-  begin
-    wait until divclk = '1';
 
-  -- increment counters
-      if  horizontal < A - 1  then
-        horizontal <= horizontal + 1;
-      else
-        horizontal <= 0;
-
-        if  vertical < O - 1  then -- less than oh
-          vertical <= vertical + 1;
-        else
-          vertical <= 0;       -- is set to zero
-        end if;
-      end if;
-
-  -- define H pulse
-      if  horizontal >= (D + E)  and  horizontal < (D + E + B)  then
-        H <= '0';
-      else
-        H <= '1';
-      end if;
-
-  -- define V pulse
-      if  vertical >= (R + S)  and  vertical < (R + S + P)  then
-        V <= '0';
-      else
-        V <= '1';
-      end if;
-end process;
+    vga_counter:process
+        --variable vertical, horizontal : counter;  -- define counters
+      begin
+        wait until divclk = '1';
+    
+      -- increment counters
+          if  horizontal < A - 1  then
+            horizontal <= horizontal + 1;
+          else
+            horizontal <= 0;
+    
+            if  vertical < O - 1  then -- less than oh
+              vertical <= vertical + 1;
+            else
+              vertical <= 0;       -- is set to zero
+            end if;
+          end if;
+    
+      -- define H pulse
+          if  horizontal >= (D + E)  and  horizontal < (D + E + B)  then
+            H <= '0';
+          else
+            H <= '1';
+          end if;
+    
+      -- define V pulse
+          if  vertical >= (R + S)  and  vertical < (R + S + P)  then
+            V <= '0';
+          else
+            V <= '1';
+          end if;
+    end process;
 
 ------------------------------------------------------
 有了畫面掃描功能後，就可以透過垂直和水平座標在畫面上顯示我們想要的圖案，下面就用矩形、三角形和圓形舉例:
