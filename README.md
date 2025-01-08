@@ -145,4 +145,124 @@
         end if;
     end process;
 
+# VGA_VTC
+
+## 新增額外VGA參數
+
+VTC是使用過去PWM的概念下去做出VGA的功能，同樣需要使用2個計數器交互計數，分別代表水平座標中的HIGH和LOW。而計數完成的次數是代表垂直座標，然後需要設定HIGH和LOW的範圍。
+
+宣告部分:
+
+    signal pwm : STD_LOGIC;  --HSYNC
+    signal pre_pwm : STD_LOGIC;
+    signal counter_state : STD_LOGIC;  --counter FSM
+
+    signal B : natural := 96;
+    signal C : natural := 48;
+    signal D : natural := 640;
+    signal E : natural := 16;
+    
+    signal P : natural := 2;
+    signal Q : natural := 33;
+    signal R : natural := 480;
+    signal S : natural := 10;
+    
+    signal upbound1 : integer := D + E + C;  --HSYNC "high" period
+    signal upbound2 : integer := B;  --HSYNC "low" period
+    signal horizontal : integer;
+    signal vertical : integer;
+    
+    signal pwm_complete : STD_LOGIC;  --VSYNC
+    signal pwm_count : integer := 0;  --VSYNC counter
+    signal pwm_complete_range1 : integer := P;  --VSYNC "high" period
+    signal pwm_complete_range2 : integer := Q + R + S;  --VSYNC "low" period
+    signal pwm_set_zero : integer := P + Q + R + S;  --VSYNC max reset
+    
+    signal count1 : integer := 0;  --HSYNC "high" when count
+    signal count2 : integer := 0;  --HSYNC "low" when count
+
+程式部分:
+
+    counter_complete : process(divclk, counter_state)
+    begin
+        if i_rst = '1' then
+            pwm_count <= 0;
+            pwm_complete <= '0';
+        elsif divclk'event and divclk = '1' then
+            pre_pwm <= pwm;
+            if pwm_count >= pwm_set_zero then
+                pwm_count <= 0;
+            elsif pre_pwm = '1' and pwm = '0' then
+                pwm_count <= pwm_count + 1;
+            end if;
+            
+            if pwm_count > pwm_complete_range2 then
+                pwm_complete <= '0';
+            else
+                pwm_complete <= '1';
+            end if;
+        end if;
+    end process;
+    
+    counter_FSM : process(i_clk, i_rst, count1, count2)
+    begin
+        if i_rst = '1' then
+            counter_state <= '0';
+        elsif i_clk'event and i_clk = '1' then
+            case counter_state is
+                when '0' =>
+                    if count1 >= upbound1 then
+                        counter_state <= '1';
+                    end if;
+                when '1' =>
+                    if count2 > upbound2 then
+                        counter_state <= '0';
+                    end if;
+                when others =>
+                    counter_state <= '0';
+            end case;
+        end if;
+    end process;
+    
+    counter1 : process(divclk, i_rst, upbound1, counter_state)
+    begin
+        if i_rst = '1' then
+            count1 <= 0;
+        elsif divclk'event and divclk = '1' then
+            case counter_state is
+                when '0' =>
+                    if count1 < upbound1 then
+                        count1 <= count1 + 1;
+                    end if;
+                when '1' =>
+                    count1 <= 0;
+                when others =>
+                    count1 <= 0;
+            end case;
+        end if;
+    end process;
+    
+    counter2 : process(divclk, i_rst, upbound2, counter_state)
+    begin
+        if i_rst = '1' then
+            count2 <= 0;
+        elsif divclk'event and divclk = '1' then
+            case counter_state is
+                when '0' =>
+                    count2 <= 0;
+                when '1' =>
+                    if count2 <= upbound2 then
+                        count2 <= count2 + 1;
+                    end if;
+                when others =>
+                    count2 <= 0;
+            end case;
+        end if;
+    end process;
+
+## 顯示結果
+
+在使用我設計的VTC去顯示時，如圖所示，會發現畫面的水平座標有整個向右移的狀況，所以會發現左邊有黑色的一條空間，並且下方的綠色矩形有變淡，推測有可能是圖案顏色超出了邊際導致的。
+
+
 
