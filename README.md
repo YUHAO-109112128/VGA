@@ -119,6 +119,7 @@
     signal circle_a : integer := 100;
     signal delta_circle : integer := 5;
     signal circle_b : integer := 100;
+
 程式部分:
 
     picture_adjust : process(i_clk, swSuba, swPlusa, swSubb, swPlusb)
@@ -143,3 +144,5 @@
             end if;
         end if;
     end process;
+
+
