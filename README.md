@@ -267,4 +267,3 @@ VTC是使用過去PWM的概念下去做出VGA的功能，同樣需要使用2個�
 ![這是使用VTC製作的VGA顯示圖片](vga_vtc/VGA_VTC_Display.jpg)
 
 
-
